@@ -1,0 +1,135 @@
+definitions:
+  entity.Token:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTM4ODM4NDAsImlhdCI6MTc1Mzg4Mjk0MCwic3ViIjoiNmQ2NWRiM2YtNTQ2NC00ODU4LWEzMmYtOTdhYWI2ZWQ1MWE1In0.264J7ppNEIKhDlEUQQk6qfFRoR-w5BlUXHzdnh4RDzUJQWt8_X7Qs-xlBpLzvCEY9D1ymcYbsP6uCzwYTYsb7A
+        type: string
+      refresh_token:
+        example: nZiZiGmwDPkRFc21izNL5Nwp94TEy+qdYwBtKWE+7CM=
+        type: string
+    type: object
+  request.RefreshRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  response.Error:
+    properties:
+      error:
+        example: message
+        type: string
+    type: object
+  response.UserID:
+    properties:
+      user_id:
+        example: 6d65db3f-5464-4858-a32f-97aab6ed51a5
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /session/logout:
+    post:
+      description: All sessions become invalid
+      operationId: logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Error'
+      security:
+      - TokenAuth: []
+      summary: Logout
+      tags:
+      - sessions
+  /session/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Refresh token-pair for user. The previous one becomes invalid
+      operationId: refresh
+      parameters:
+      - description: Refresh token request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.RefreshRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Error'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.Error'
+      security:
+      - TokenAuth: []
+      summary: Refresh token-pair
+      tags:
+      - sessions
+  /session/token:
+    post:
+      description: Create token-pair for user
+      operationId: create
+      parameters:
+      - description: Create token-pair for user with specified GUID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Error'
+      summary: Create token-pair
+      tags:
+      - sessions
+  /user/me:
+    get:
+      operationId: me
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.UserID'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.Error'
+      security:
+      - TokenAuth: []
+      summary: Show user_id
+      tags:
+      - user
+swagger: "2.0"

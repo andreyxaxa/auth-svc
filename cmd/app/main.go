@@ -8,15 +8,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// @title   Auth service API
-// @version 1.0
-// @host    localhost:8080
-// BasePath /v1
-
-// @securityDefinitions.apikey TokenAuth
-// @in                         header
-// @name 					   Authorization
-
 func main() {
 	// Load .env
 	if err := godotenv.Load(); err != nil {

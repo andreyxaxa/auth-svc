@@ -28,7 +28,7 @@ func New(pg *postgres.Postgres) *SessionRepo {
 func (r *SessionRepo) Create(ctx context.Context, session *entity.Session) error {
 	sql, args, err := r.Builder.
 		Insert(tableName).
-		Columns("id, user_id, refresh_hash, user_agent, ip, created_at, used").
+		Columns("id, user_id, refresh_hash, user_agent, ip, used").
 		Values(session.ID, session.UserID, session.RefreshHash, session.UserAgent, session.IP, session.Used).
 		ToSql()
 	if err != nil {

@@ -14,8 +14,15 @@ const docTemplate = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
+    "securityDefinitions": {
+        "TokenAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
     "paths": {
-        "/session/logout": {
+        "/v1/session/logout": {
             "post": {
                 "security": [
                     {
@@ -50,7 +57,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/session/refresh": {
+        "/v1/session/refresh": {
             "post": {
                 "security": [
                     {
@@ -102,7 +109,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/session/token": {
+        "/v1/session/token": {
             "post": {
                 "description": "Create token-pair for user",
                 "produces": [
@@ -144,7 +151,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/me": {
+        "/v1/user/me": {
             "get": {
                 "security": [
                     {
@@ -197,7 +204,8 @@ const docTemplate = `{
             ],
             "properties": {
                 "refresh_token": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "rN3aqj1enSeFhz7lMzgAtvUZWRz4GZ8qDEy0yXUG4hQ="
                 }
             }
         },

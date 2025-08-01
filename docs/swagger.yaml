@@ -11,6 +11,7 @@ definitions:
   request.RefreshRequest:
     properties:
       refresh_token:
+        example: rN3aqj1enSeFhz7lMzgAtvUZWRz4GZ8qDEy0yXUG4hQ=
         type: string
     required:
     - refresh_token
@@ -30,7 +31,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /session/logout:
+  /v1/session/logout:
     post:
       description: All sessions become invalid
       operationId: logout
@@ -52,7 +53,7 @@ paths:
       summary: Logout
       tags:
       - sessions
-  /session/refresh:
+  /v1/session/refresh:
     post:
       consumes:
       - application/json
@@ -85,7 +86,7 @@ paths:
       summary: Refresh token-pair
       tags:
       - sessions
-  /session/token:
+  /v1/session/token:
     post:
       description: Create token-pair for user
       operationId: create
@@ -113,7 +114,7 @@ paths:
       summary: Create token-pair
       tags:
       - sessions
-  /user/me:
+  /v1/user/me:
     get:
       operationId: me
       produces:
@@ -133,3 +134,8 @@ paths:
       tags:
       - user
 swagger: "2.0"
+securityDefinitions:
+  TokenAuth:
+    type: apiKey
+    name: Authorization
+    in: header

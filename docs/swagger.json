@@ -3,8 +3,15 @@
     "info": {
         "contact": {}
     },
+    "securityDefinitions": {
+        "TokenAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
     "paths": {
-        "/session/logout": {
+        "/v1/session/logout": {
             "post": {
                 "security": [
                     {
@@ -39,7 +46,7 @@
                 }
             }
         },
-        "/session/refresh": {
+        "/v1/session/refresh": {
             "post": {
                 "security": [
                     {
@@ -91,7 +98,7 @@
                 }
             }
         },
-        "/session/token": {
+        "/v1/session/token": {
             "post": {
                 "description": "Create token-pair for user",
                 "produces": [
@@ -133,7 +140,7 @@
                 }
             }
         },
-        "/user/me": {
+        "/v1/user/me": {
             "get": {
                 "security": [
                     {
@@ -186,7 +193,8 @@
             ],
             "properties": {
                 "refresh_token": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "rN3aqj1enSeFhz7lMzgAtvUZWRz4GZ8qDEy0yXUG4hQ="
                 }
             }
         },

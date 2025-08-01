@@ -25,7 +25,7 @@ var (
 // @Success 	200 {object} entity.Token
 // @Failure 	400 {object} response.Error
 // @Failure 	500 {object} response.Error
-// @Router 		/session/token [post]
+// @Router 		/v1/session/token [post]
 func (r *V1) create(ctx *fiber.Ctx) error {
 	uidStr := ctx.Query("user_id")
 	userID, err := uuid.Parse(uidStr)
@@ -56,7 +56,7 @@ func (r *V1) create(ctx *fiber.Ctx) error {
 // @Success 	200 {object} entity.Token
 // @Failure 	400 {object} response.Error
 // @Failure 	401 {object} response.Error
-// @Router 		/session/refresh [post]
+// @Router 		/v1/session/refresh [post]
 func (r *V1) refresh(ctx *fiber.Ctx) error {
 	var req request.RefreshRequest
 
@@ -92,7 +92,7 @@ func (r *V1) refresh(ctx *fiber.Ctx) error {
 // @Success 	200
 // @Failure 	401 {object} response.Error
 // @Failure 	500 {object} response.Error
-// @Router 		/session/logout [post]
+// @Router 		/v1/session/logout [post]
 func (r *V1) logout(ctx *fiber.Ctx) error {
 	userID, err := extractUserIDFromHeader(ctx, r.s)
 	if err != nil {
@@ -117,7 +117,7 @@ func (r *V1) logout(ctx *fiber.Ctx) error {
 // @Security TokenAuth
 // @Success  200 {object} response.UserID
 // @Failure  401 {object} response.Error
-// @Router   /user/me [get]
+// @Router   /v1/user/me [get]
 func (r *V1) me(ctx *fiber.Ctx) error {
 	userID, err := extractUserIDFromHeader(ctx, r.s)
 	if err != nil {

@@ -5,7 +5,7 @@ compose-up: ### Run docker compose
 .PHONY: compose-up
 
 compose-down: ### Down docker compose
-		$(BASE_STACK) down
+		$(BASE_STACK) down -v
 .PHONY: compose-down
 
 deps: ### deps tidy + verify

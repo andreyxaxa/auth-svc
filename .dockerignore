@@ -3,7 +3,7 @@
 .github
 
 .dockerignore
-.env
+# .env
 .gitignore
 
 docker-compose.yml
